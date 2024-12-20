@@ -22,18 +22,18 @@ protocol ApiRequestable  {
     var queryParametersEncodable: Encodable? { get }
     var queryParameters: [String: Any] { get }
     var bodyParametersEncodable: Encodable? { get }
-    var bodyParameters: [String: Any] { get }
+    var bodyParameters: [String: Any]? { get }
     var paramsEncoder: APIParamEncoder? { get }
     var requiresAuthentication: Bool { get }
     
-    func urlRequest(baseURL: URL?, apiKey: String?, bearerToken: String?) throws -> URLRequest
+    func urlRequest(baseURL: URL?, apiKey: String?) throws -> URLRequest
 }
 
 
 
 extension ApiRequestable {
     
-        func url(baseURL: URL?, apiKey: String?, bearerToken: String?) throws -> URL {
+        func url(baseURL: URL?, apiKey: String?) throws -> URL {
             var endpoint = path
             
             if let baseURL = baseURL, !isFullPath {
@@ -49,12 +49,10 @@ extension ApiRequestable {
             
             var urlQueryItems = [URLQueryItem]()
             
-            // Add TMDB API Key if required and available
             if requiresAuthentication, let apiKey = apiKey {
                 urlQueryItems.append(URLQueryItem(name: "api_key", value: apiKey))
             }
             
-            // Add additional query parameters
             let queryParameters = try queryParametersEncodable?.toDictionary() ?? self.queryParameters
             queryParameters.forEach {
                 urlQueryItems.append(URLQueryItem(name: $0.key, value: "\($0.value)"))
@@ -65,17 +63,15 @@ extension ApiRequestable {
             return url
         }
         
-        func urlRequest(baseURL: URL?, apiKey: String?, bearerToken: String?) throws -> URLRequest {
-            let url = try self.url(baseURL: baseURL, apiKey: apiKey, bearerToken: bearerToken)
+        func urlRequest(baseURL: URL?, apiKey: String?) throws -> URLRequest {
+            let url = try self.url(baseURL: baseURL, apiKey: nil)
             var urlRequest = URLRequest(url: url)
             var allHeaders: [String: String] = [:]
             
-            // Add TMDB Bearer Token if required and available
-            if requiresAuthentication, let bearerToken = bearerToken {
-                allHeaders["Authorization"] = "Bearer \(bearerToken)"
+            if requiresAuthentication, let apiKey = apiKey {
+                allHeaders["Authorization"] = "Bearer \(apiKey)"
             }
             
-            // Add additional headers
             headerParameters.forEach { allHeaders.updateValue($1, forKey: $0) }
             
             urlRequest.httpMethod = method.rawValue
@@ -87,7 +83,7 @@ extension ApiRequestable {
             
             if let bodyParams = bodyParametersEncodable {
                 urlRequest = try paramsEncoder.encodeRequestParameters(urlRequest, bodyParams)
-            } else if !bodyParameters.isEmpty {
+            } else if let bodyParameters = bodyParameters, !bodyParameters.isEmpty {
                 urlRequest = try paramsEncoder.encodeRequestParameters(urlRequest, bodyParameters)
             }
             
