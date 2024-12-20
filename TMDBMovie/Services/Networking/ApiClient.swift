@@ -25,7 +25,7 @@ protocol ApiClient: AnyObject {
     ) throws -> APIClientTaskCancelable?
     
     @discardableResult
-    func request(
+    func requestData(
         endpoint: ApiRequestable,
         completion: @escaping CompletionHandler<Data>
     ) throws -> APIClientTaskCancelable?
