@@ -41,7 +41,7 @@ The project follows Clean Architecture principles:
 2. Open the project in Xcode:
    ```bash
    cd movie-app
-   open MovieApp.xcodeproj
+   open TMDBMovies.xcodeproj
    ```
 3. Build and run the project on an iPhone simulator or physical device.
 
