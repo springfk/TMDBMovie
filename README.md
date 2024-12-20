@@ -36,7 +36,7 @@ The project follows Clean Architecture principles:
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/movie-app.git
+   git clone https://github.com/your-username/TMDBMovie.git
    ```
 2. Open the project in Xcode:
    ```bash
@@ -72,6 +72,7 @@ The project follows Clean Architecture principles:
 - Adhere to Clean Architecture principles.
 - Avoid third-party libraries.
 - Test changes on iPhone simulators (not compatible with iPads).
+- Need VPN to get images.
 
 ## Future Enhancements
 - Add support for more TMDB endpoints, such as Top Rated or Popular Movies.
