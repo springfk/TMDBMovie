@@ -7,6 +7,7 @@ The Movie App is a Swift-based application that displays a list of "Now Playing"
 ## Features
 - **Display Now Playing Movies**: Fetch and display a list of currently playing movies from the TMDB API.
 - **User Authentication**: Secure login using the TMDB API.
+- **App Theme**: Support both light and dark mode.
 - **Bookmark Movies**: Allow users to bookmark their favorite movies.
 - **Caching Mechanism**: Cache bookmarked movies for offline access.
 - **Minimalistic Design**: Focused on simplicity and usability.
