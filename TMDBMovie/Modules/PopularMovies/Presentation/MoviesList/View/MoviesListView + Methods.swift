@@ -30,7 +30,7 @@ extension MoviesListViewRoot {
     }
     
     func setupPageNavigation() {
-        self.pageTitle = NSLocalizedString("TMDB Movies", comment: "")
+        self.pageTitle = "TMDB Movies"
     }
     
     func setupUI() {
