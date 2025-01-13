@@ -30,7 +30,7 @@ extension MoviesListViewRoot {
     }
     
     func setupPageNavigation() {
-        self.pageTitle = "TMDB Movies"
+        self.pageTitle = "TMDB Movies".localized()
     }
     
     func setupUI() {
