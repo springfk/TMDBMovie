@@ -205,6 +205,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"fa-IR",
 			);
 			mainGroup = 0CDF7F8B2D104D60007B0C0C;
 			minimizedProjectReferenceProxies = 1;
